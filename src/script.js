@@ -160,6 +160,33 @@ let todos = [{
             });
         }
 
+        const destroyButtons = document.querySelectorAll('.destroy');
+        for (const destroyButton of destroyButtons) {
+            destroyButton.addEventListener('click', () => {
+                const todoId = destroyButton.dataset.id;
+
+                //Dapatkan TODO berdasarkan ID untuk memeriksa keberadaan nya
+                const todo = todos.find((todo) => todo.id == todoId);
+                const index = todos.indexOf(todo);
+
+                //jika tidak ditemukan, akhiri function ini.
+                if (index == -1) {
+                    return;
+                }
+
+                //Penghapusan TODO
+                const newTodos = todos.filter((todo) => {
+                    return todo.id != todoId;
+                });
+                todos = newTodos;
+
+                //Perbarui UI
+                render();
+            })
+        }
+
+
+
 
         console.log('Do after render jobs...');
         // Do some jobs after render finish...
