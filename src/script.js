@@ -105,6 +105,8 @@ const TODO_KEY = 'todos';
     `;
     }
 
+
+
     function render() {
         const todos = getAllTodos();
         console.log('render:', todos);
@@ -127,6 +129,7 @@ const TODO_KEY = 'todos';
         console.log('rendered...');
 
         afterRender();
+        renderdeleteall()
     }
 
     function afterRender() {
@@ -240,13 +243,38 @@ const TODO_KEY = 'todos';
                 render();
             })
         }
-
-
-
-
         console.log('Do after render jobs...');
         // Do some jobs after render finish...
     }
+
+    // Fungsi untuk mendelete semua TODO
+    function renderdeleteall() {
+        // Dapatkan tombol "Delete All Todos"
+        const clearTodosBtn = document.querySelector('.clear-todos-btn');
+
+        // Pastikan tombol ditemukan sebelum menambahkan event listener
+        if (clearTodosBtn) {
+            // Tambahkan event listener untuk menghapus semua TODO saat tombol ditekan
+            clearTodosBtn.addEventListener('click', () => {
+                // Cek apakah konfirmasi sudah ditampilkan sebelumnya
+                if (!localStorage.getItem('confirmDeleteShown')) {
+                    // Jika belum ditampilkan, tampilkan konfirmasi
+                    const confirmDelete = confirm('Apakah Anda yakin ingin menghapus semua TODO?');
+                    // Set flag untuk menandai bahwa konfirmasi sudah ditampilkan
+                    localStorage.setItem('confirmDeleteShown', true);
+
+                    // Jika pengguna mengonfirmasi, hapus semua TODO dari penyimpanan lokal
+                    if (confirmDelete) {
+                        localStorage.removeItem(TODO_KEY);
+                        // Perbarui UI
+                        render();
+                    }
+                }
+            });
+        }
+    }
+
+
 
     render();
 })();

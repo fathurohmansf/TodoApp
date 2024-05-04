@@ -41,6 +41,23 @@ body {
     color: #b83f45;
 }
 
+.todoapp .todos-tools {
+    align-items: center;
+    display: flex
+}
+
+.todoapp .todos-tools form {
+    flex-grow: 1
+}
+
+.todoapp .todos-tools .clear-todos-btn {
+    background: rgba(0, 0, 0, .03);
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    padding: 16px
+}
+
 .todoapp input::placeholder {
     font-style: italic;
     font-weight: 400;
